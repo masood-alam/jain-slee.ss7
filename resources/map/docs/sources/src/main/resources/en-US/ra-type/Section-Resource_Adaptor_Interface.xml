@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "../User_Guide.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="ratype_ra_interface">
+
+	<title>Resource Adaptor Interface</title>
+
+	<para>
+		The MAP Resource Adaptor SBB Interface provides SBBs with
+		access to the MAP objects required for creating a new, aborting, ending a MAPdialog and
+		sending USSD Request/Response. It is defined as follows:
+	</para>
+	
+	<programlisting language="java">
+package org.mobicents.protocols.ss7.map.api;
+
+
+public interface MAPProvider {
+
+	 public abstract void addMAPDialogListener(MAPDialogListener mapdialoglistener);
+
+    public abstract void removeMAPDialogListener(MAPDialogListener mapdialoglistener);
+
+    public abstract MAPParameterFactory getMAPParameterFactory();
+
+    public abstract MAPErrorMessageFactory getMAPErrorMessageFactory();
+
+    public abstract MAPDialog getMAPDialog(Long long1);
+
+	public MAPSmsTpduParameterFactory getMAPSmsTpduParameterFactory();
+
+	public MAPServiceMobility getMAPServiceMobility();
+
+	public MAPServiceCallHandling getMAPServiceCallHandling();
+
+	public MAPServiceOam getMAPServiceOam();
+
+	public MAPServicePdpContextActivation getMAPServicePdpContextActivation();
+
+	public MAPServiceSupplementary getMAPServiceSupplementary();
+	
+	public MAPServiceSms getMAPServiceSms();
+	
+	public MAPServiceLsm getMAPServiceLsm();
+
+}
+	
+	</programlisting>
+	<variablelist>
+		<varlistentry>
+			<term> public abstract void addMAPDialogListener(MAPDialogListener mapdialoglistener);</term>
+			<listitem>
+				<para>this method is not supported. Call to it causes NotSupportedException to be thrown.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>public abstract void removeMAPDialogListener(MAPDialogListener mapdialoglistener);</term>
+			<listitem>
+				<para>this method is not supported. Call to it causes NotSupportedException to be thrown.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>public abstract MAPParameterFactory getMAPParameterFactory();</term>
+			<listitem>
+				<para>retrieves factory for generic MAP components</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>public abstract MAPErrorMessageFactory getMAPErrorMessageFactory();</term>
+			<listitem>
+				<para>retrieves implementation of MAP error message factory. Error messages are used to indicate erroneous conditions.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>public abstract MAPDialog getMAPDialog(Long dialogId);</term>
+			<listitem>
+				<para>retrieves active dialog by its <literal>ID</literal>. </para>
+			</listitem>
+		</varlistentry>
+		
+		<varlistentry>
+			<term>public abstract MAPDialog getMAPSmsTpduParameterFactory();</term>
+			<listitem>
+				<para>retrieves factory for SMS transaction protocol data unit. This is useful for services that are based on SMS.</para>
+			</listitem>
+		</varlistentry>
+		
+		<varlistentry>
+			<term>public abstract MAPServiceMobility getMAPServiceMobility();</term>
+			<listitem>
+				<para>retrieves MAP mobility service. It is used to create mobility dialogs.</para>
+			</listitem>
+		</varlistentry>		
+		
+		<varlistentry>
+			<term>public abstract MAPServiceCallHandling getMAPServiceCallHandling();</term>
+			<listitem>
+				<para>retrieves MAP call handling service. It is used to create call handling dialogs.</para>
+			</listitem>
+		</varlistentry>		
+		
+		<varlistentry>
+			<term>public abstract MAPServiceOam getMAPServiceOam();</term>
+			<listitem>
+				<para>retrieves MAP operations and managemenet service. It is used to create OAM dialogs.</para>
+				<note>
+					<para>
+						This service is not yet implemented
+					</para>
+				</note>
+			</listitem>
+		</varlistentry>				
+		
+		<varlistentry>
+			<term>public abstract MAPServicePdpContextActivation getMAPServicePdpContextActivation()</term>
+			<listitem>
+				<para>retrieves MAP Network-Requested PDP Context Activation services.</para>
+				<note>
+					<para>
+						This service is not yet implemented
+					</para>
+				</note>
+			</listitem>
+		</varlistentry>		
+		
+		<varlistentry>
+			<term>public abstract MAPServiceSupplementary getMAPServiceSupplementary();</term>
+			<listitem>
+				<para>retrieves MAP sumplementary service. It is used to create USSD dialogs.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>public abstract MAPServiceSms getMAPServiceSms();</term>
+			<listitem>
+				<para>retrieves MAP SMS service. It is used to create SMS dialogs. In current release it is not supported.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>public abstract MAPServiceLsm getMAPServiceLsm();</term>
+			<listitem>
+				<para>retrieves MAP LMS service. It is used to create LMS dialogs. In current release it is not supported.</para>
+			</listitem>
+		</varlistentry>
+		
+	</variablelist>
+	<note>
+		<para>As MAP stack is being completed, it will support more services, this list of <literal>getMAPServiceX</literal> will expand to support all implemented services.</para>
+	</note>
+</section>
